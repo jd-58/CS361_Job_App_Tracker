@@ -84,74 +84,6 @@ class User:
         return self._jobs_applied
 
 
-class App:
-    def __init__(self, master):
-        self.master = master
-        self.master.geometry("300x200")
-        self.current_user = None  # To store the user's name
-        self.name_page()
-
-    def name_page(self):
-        # Clear the window
-        for widget in self.master.winfo_children():
-            widget.destroy()
-
-        # Create the Name Page
-        frame = Frame(self.master)
-        frame.pack()
-
-        label = ttk.Label(frame, text="Enter your name:")
-        label.pack(pady=10)
-
-        self.name_entry = ttk.Entry(frame)
-        self.name_entry.pack(pady=10)
-
-        submit_button = ttk.Button(frame, text="Submit", command=self.welcome_page)
-        submit_button.pack(pady=10)
-
-    def welcome_page(self):
-        # Get the user's name
-        user_name = self.name_entry.get().strip()
-        if not user_name:
-            return  # Do nothing if the name is empty
-
-        self.current_user = user_name
-
-        # Clear the window
-        for widget in self.master.winfo_children():
-            widget.destroy()
-
-        # Create the Welcome Page
-        frame = Frame(self.master)
-        frame.pack()
-
-        label = ttk.Label(frame, text=f"Welcome, {self.current_user}!")
-        label.pack(pady=10)
-
-        add_job_button = ttk.Button(frame, text="Add Job", command=self.add_job_page)
-        add_job_button.pack(pady=10)
-
-    def add_job_page(self):
-        # Clear the window
-        for widget in self.master.winfo_children():
-            widget.destroy()
-
-        # Create the Add Job Page
-        frame = Frame(self.master)
-        frame.pack()
-
-        label = ttk.Label(frame, text="Add a Job")
-        label.pack(pady=10)
-
-        back_button = ttk.Button(frame, text="Back to Welcome Page", command=self.welcome_page)
-        back_button.pack(pady=10)
-
-
-# Run the application
-"""root = Tk()
-App(root)
-root.mainloop()"""
-
 
 current_user = User()  # Create a User object
 user_name = input("Hello! Welcome to the job tracker. Please enter your name: ")
@@ -161,7 +93,8 @@ while True:
     print("\nJob Tracker Menu:")
     print("1. Add a new job")
     print("2. View all jobs")
-    print("3. Exit")
+    print("3. Remove a job")
+    print("4. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -189,6 +122,23 @@ while True:
                 job_number += 1
 
     elif choice == "3":
+        # Display jobs
+        jobs = current_user.get_jobs()  # Access the user's jobs list
+        if not jobs:
+            print("Job list empty.")
+        else:
+            print("List of jobs added: ")
+            job_number = 1
+            for job in jobs:
+                print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}, Notes: {job.get_notes()}")
+                job_number += 1
+            job_to_remove = input("Type the number of the job you would like to remove: ")
+            while int(job_to_remove) > len(jobs) or int(job_to_remove) <= 0:
+                job_to_remove = input("Invalid selection. Type the number of the job you would like to remove: ")
+            del jobs[int(job_to_remove) - 1]
+            print("Job successfully removed.")
+
+    elif choice == "4":
         print("Exiting the Job Tracker. Goodbye!")
         break
 

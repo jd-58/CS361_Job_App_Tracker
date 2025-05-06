@@ -87,6 +87,7 @@ current_user = User()  # Create a User object
 print("Hello! Welcome to the Job Tracker.")
 print("This program helps you track your job applications.")
 print("Current features include adding jobs, viewing jobs, and removing jobs.")
+print("You will have to have access to a keyboard to type in inputs in order to use features of this program.")
 user_name = input("Please enter your name: ")
 current_user.set_name(user_name)
 

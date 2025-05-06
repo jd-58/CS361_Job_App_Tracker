@@ -109,7 +109,12 @@ while True:
             # Collect job details
             title = input("Enter the job title: ")
             company = input("Enter the company: ")
-            notes = input("Enter any notes about the job: ")
+            notes_confirmation = input("Would you like to enter notes about your job entry? "
+                                       "This is optional (yes/no): ")
+            if notes_confirmation.lower() == "yes":
+                notes = input("Enter any notes about the job: ")
+            else:
+                notes = None
             print("")
             print("Here is the job you entered: ")
             print(f"Title: {title}, Company: {company}, Notes: {notes}")

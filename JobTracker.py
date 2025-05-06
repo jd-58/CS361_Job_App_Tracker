@@ -1,6 +1,4 @@
-import tkinter as tk
-from tkinter import *
-from tkinter import ttk
+
 
 # Job Title, Custom name, notes section
 
@@ -86,27 +84,33 @@ class User:
 
 
 current_user = User()  # Create a User object
-user_name = input("Hello! Welcome to the job tracker. Please enter your name: ")
+print("Hello! Welcome to the Job Tracker.")
+print("This program helps you track your job applications.")
+print("Current features include adding jobs, viewing jobs, and removing jobs.")
+user_name = input("Please enter your name: ")
 current_user.set_name(user_name)
 
 while True:
-    print("\nJob Tracker Menu:")
+    print("")
+    print("Hello " + str(current_user.get_name()))
+    print("")
+    print("Job Tracker Menu:")
     print("1. Add a new job")
     print("2. View all jobs")
     print("3. Remove a job")
-    print("4. Exit")
+    print("4. Help/Application Information")
+    print("5. Exit")
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
         # Collect job details
         title = input("Enter the job title: ")
-        status = "Applied"
         company = input("Enter the company: ")
         notes = input("Enter any notes about the job: ")
 
         # Create a new Job object and add it to the user's jobs list
-        new_job = Job(title, status, company, None, None, notes)
+        new_job = Job(title, "Applied", company, None, None, notes)
         current_user.add_job(new_job)
         print("Job added successfully!")
 
@@ -118,8 +122,20 @@ while True:
         else:
             job_number = 1
             for job in jobs:
-                print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}, Notes: {job.get_notes()}")
+                print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}")
                 job_number += 1
+            detail_choice = input("Enter the number of a job to view details, or press Enter to skip: ")
+            while detail_choice.isdigit() and 1 <= int(detail_choice) <= len(jobs):
+                job = jobs[int(detail_choice) - 1]
+                print("")
+                print(
+                    f"Title: {job.get_title()}\nStatus: {job.get_status()}\nCompany: "
+                    f"{job.get_company()}\nNotes: {job.get_notes()}")
+                print("")
+                for job in jobs:
+                    print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}")
+                    job_number += 1
+                detail_choice = input("Enter the number of a job to view details, or press Enter to skip: ")
 
     elif choice == "3":
         # Display jobs
@@ -130,15 +146,41 @@ while True:
             print("List of jobs added: ")
             job_number = 1
             for job in jobs:
-                print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}, Notes: {job.get_notes()}")
+                print(f"{job_number}. Title: {job.get_title()}, Company: {job.get_company()}, "
+                      f"Status: {job.get_status()}")
                 job_number += 1
             job_to_remove = input("Type the number of the job you would like to remove: ")
+            while job_to_remove.isdigit() is False:
+                job_to_remove = input("Invalid input. Please type a number of the job you would like to remove.")
             while int(job_to_remove) > len(jobs) or int(job_to_remove) <= 0:
                 job_to_remove = input("Invalid selection. Type the number of the job you would like to remove: ")
-            del jobs[int(job_to_remove) - 1]
-            print("Job successfully removed.")
+            confirmation = input(f"Are you sure you want to remove job {job_to_remove}: "
+                                 f"{jobs[int(job_to_remove) - 1].get_title()} at "
+                                 f"{jobs[int(job_to_remove) - 1].get_company()}? (yes/no): ")
+            if confirmation.lower() == "yes":
+                del jobs[int(job_to_remove) - 1]
+                print("Job successfully removed.")
+            else:
+                print("Job removal canceled.")
 
     elif choice == "4":
+        print("App features:")
+        print("In the job application tracker, you can currently add a job, view information about your added jobs, "
+              "or remove a job.")
+        print("")
+        print("Tutorial: How to use the app")
+        print("1. From the main menu, select option 1 to add a new job.")
+        print("2. Enter the job title, company name, and any notes when prompted.")
+        print("3. Once all details are entered, the job will be saved, and you'll see a confirmation message.")
+        print("4. To view your jobs, return to the main menu and select option 2. "
+              "This will show you the job title and company.")
+        print("If you want more details about a job, enter its number when prompted.")
+        print("5. To remove a job, select option 3. Type the number of the job you would like to remove.")
+        print("If you need any help, you can always navigate to the main menu and select option 4.")
+        print("")
+        return_to_menu = input("Press enter to return to the main menu.")
+
+    elif choice == "5":
         print("Exiting the Job Tracker. Goodbye!")
         break
 

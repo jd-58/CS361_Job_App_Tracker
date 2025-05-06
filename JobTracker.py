@@ -140,7 +140,7 @@ while True:
         else:
             job_number = 1
             for job in jobs:
-                print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}")
+                print(f"{job_number}. Title: {job.get_title()}, Company: {job.get_company()}")
                 job_number += 1
             detail_choice = input("Enter the number of a job to view details, or press Enter to skip: ")
             while detail_choice.isdigit() and 1 <= int(detail_choice) <= len(jobs):

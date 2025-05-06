@@ -92,7 +92,7 @@ current_user.set_name(user_name)
 
 while True:
     print("")
-    print("Hello " + str(current_user.get_name()))
+    print("Hello " + str(current_user.get_name()) + "!")
     print("")
     print("Job Tracker Menu:")
     print("1. Add a new job")
@@ -104,15 +104,27 @@ while True:
     choice = input("Enter your choice: ")
 
     if choice == "1":
-        # Collect job details
-        title = input("Enter the job title: ")
-        company = input("Enter the company: ")
-        notes = input("Enter any notes about the job: ")
-
-        # Create a new Job object and add it to the user's jobs list
-        new_job = Job(title, "Applied", company, None, None, notes)
-        current_user.add_job(new_job)
-        print("Job added successfully!")
+        while True:
+            # Collect job details
+            title = input("Enter the job title: ")
+            company = input("Enter the company: ")
+            notes = input("Enter any notes about the job: ")
+            print("")
+            print("Here is the job you entered: ")
+            print(f"Title: {title}, Company: {company}, Notes: {notes}")
+            print("")
+            job_add_confirmation = input("Is this information correct? (yes/no): ")
+            while job_add_confirmation.lower() != "yes" and job_add_confirmation.lower() != "no":
+                job_add_confirmation = input("Invalid response. Is this information correct? (yes/no)")
+            if job_add_confirmation.lower() == "yes":
+                # Create a new Job object and add it to the user's jobs list
+                new_job = Job(title, "Applied", company, None, None, notes)
+                current_user.add_job(new_job)
+                print("Job added successfully!")
+                break
+            elif job_add_confirmation.lower() == "no":
+                print("Let's try again. Re-enter the job details.")
+                print("")
 
     elif choice == "2":
         # Display all jobs

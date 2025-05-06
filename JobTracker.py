@@ -183,10 +183,10 @@ while True:
         if not jobs:
             print("No jobs added yet.")
         else:
-            index = 1
+            job_number = 1
             for job in jobs:
-                print(f"{index}. Title: {job.get_title()}, Status: {job.get_status()}, Notes: {job.get_notes()}")
-                index += 1
+                print(f"{job_number}. Title: {job.get_title()}, Status: {job.get_status()}, Notes: {job.get_notes()}")
+                job_number += 1
 
     elif choice == "3":
         print("Exiting the Job Tracker. Goodbye!")

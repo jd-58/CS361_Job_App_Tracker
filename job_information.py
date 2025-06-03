@@ -11,12 +11,18 @@ def get_job_count(jobs):
     """Return the total number of jobs."""
     return len(jobs)
 
+
 def get_job_count_by_status(jobs):
     """Return the count of jobs for each status."""
     status_counts = {}
+
     for job in jobs:
+        # If no status, set to unknown
         status = job.get("status", "Unknown")
-        status_counts[status] = status_counts.get(status, 0) + 1
+        if status not in status_counts:
+            status_counts[status] = 0
+        status_counts[status] += 1
+
     return status_counts
 
 def main():

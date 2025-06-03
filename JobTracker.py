@@ -64,15 +64,6 @@ class Job:
 
 dummy_jobs = [
     Job(
-        title="Software Engineer",
-        status="Applied",
-        company="Meta",
-        date_applied="2023-10-01",
-        description="Develop and maintain software applications.",
-        notes="Focus on backend development.",
-        type="Job"
-    ),
-    Job(
         title="Web Developer",
         status="Applied",
         company="Microsoft",

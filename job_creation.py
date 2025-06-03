@@ -19,7 +19,7 @@ def main():
     socket = context.socket(zmq.REP)  # Reply socket
     socket.bind("tcp://127.0.0.1:5556")  # Bind to a new port for the microservice
 
-    print("Job Creation Service is running...")
+    print("Job Creation Service is running on port 5556")
 
     while True:
         # Receive job details from JobTracker
